@@ -1,0 +1,88 @@
+<div class="vertical-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="searchControl">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" [(ngModel)]="title" placeholder="Movie Title"
+              aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button [disabled]="title == ''" class="btn btn-primary" (click)="search()" type="button">Search</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <label>Plot</label>
+              <div class="row ">
+                <div class="col-lg-6">
+                  <div class="form-check controlBody">
+                    <input class="form-check-input" type="radio" name="radioPlot" id="shortRadio" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Short
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-check controlBody">
+                      <input class="form-check-input" type="radio" name="radioPlot" id="fullRadio">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Full
+                      </label>
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-lg-6">
+              <label>Year</label>
+              <select class="form-select controlBody" [(ngModel)]="movieYear" aria-label="Default select example">
+                <option selected></option>
+                <option [value]="year" *ngFor="let year of movieYears">{{year}}</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div style="margin-top: 70px;" class="container" *ngIf="movie?.title != undefined">
+          <div class="row">
+            <div class="col-lg-5">
+              <img *ngIf="movie?.poster!='N/A'" [src]="movie?.poster" />
+              <label *ngIf="movie?.poster =='N/A'">Image link not available</label>
+            </div>
+            <div class="col-lg-7">
+              <span><label>Title:</label> {{movie?.title}}</span><br>
+              <span><label>Year: </label> {{movie?.year}}</span><br>
+              <span><label>IMDB Score: </label> {{movie?.imdbRating}}</span><br>
+              <span><label>Plot: </label> {{movie?.plot}}</span><br>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="movie?.title == undefined">
+          <p>No Movie found</p>
+        </div>
+      </div>
+      <div class="col-lg-4" style="margin-top: 70px;">
+        <p>Search Results</p>
+        <table class="table table-striped">
+          <thead class="thead-light">
+            <tr>
+              <td>Title</td>
+              <!-- <td>Release Year</td> -->
+              <td>View Details</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let movie of movies">
+              <td>{{movie.searchResult.title}}</td>
+              <!-- <td>{{movie.searchResult.year}}</td> -->
+              <td><a class="btn btn-outline-primary" (click)="selectMovie(movie.searchResult.imdbID)">View Details</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</div>
