@@ -29,7 +29,8 @@ namespace jean_edwards.Services
             {
                 var apiKey = _config.GetSection("ApiKey").Value;
                 var year = query.Year == 0 ? string.Empty : query.Year.ToString();
-                var responseString = await _httpClient.GetStringAsync($"?apiKey={apiKey}&t={title}&plot={query.Plot}&y={year}");
+                var plot = string.IsNullOrEmpty(query.Plot) ? "short" : query.Plot;
+                var responseString = await _httpClient.GetStringAsync($"?apiKey={apiKey}&t={title}&plot={plot}&y={year}");
                 var responseModel = JsonConvert.DeserializeObject<MovieModel>(responseString);
                 if (responseModel.Response)
                 {
