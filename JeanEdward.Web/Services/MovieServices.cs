@@ -59,6 +59,7 @@ namespace jean_edwards.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 throw new Exception($"An error occurred. {ex.Message}");
             }
         }
